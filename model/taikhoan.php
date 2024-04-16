@@ -56,3 +56,9 @@ function deleteTaiKhoan($id) {
     $sql = "DELETE FROM taikhoan WHERE id = '{$id}'";
     pdo_execute($sql);
 }
+
+function loadAllTaiKhoan(){
+    $sql = "SELECT * FROM taikhoan ";
+    $listTaiKhoan = pdo_query($sql);
+    return $listTaiKhoan;
+}

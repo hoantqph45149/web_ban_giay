@@ -10,6 +10,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
     include "../model/lienhe.php";
     include "../model/binhluan.php";
     include "../model/cart.php";
+    include "../model/kichthuoc.php";
     include "../model/tongquan.php";
 
     $dm = null;
@@ -21,16 +22,15 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
             case 'home':
                 include 'home.php';
                 break;
-                //danhmuc
+ ///////////////////////////////////////////////////danhmuc//////////////////////////////////////////////
             case 'tmdanhmuc':
-                //kiểm tra xem người dùng có click vào nút gửi hay không?
                 if (isset($_POST['gui']) && ($_POST['gui'])) {
                     $tenloai = $_POST['tenloai'];
 
                     $error_messages = array();
 
                     if (empty($tenloai)) {
-                        $error_messages['tenloai'] = "Hãy nhập tên danh mục.";
+                        $error_messages['tenloai'] = "Vui lòng nhập tên danh mục.";
                     }
                     if (empty($error_messages)) {
                         insert_danhmuc($tenloai);
@@ -61,8 +61,10 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
                 if (isset($_POST['gui']) && ($_POST['gui'])) {
                     $id = $_POST['id'];
                     $tenloai = $_POST['tenloai'];
+                    $error_messages = array();
+
                     if (empty($tenloai)) {
-                        $error_messages['tenloai'] = "Hãy nhập tên danh mục.";
+                        $error_messages['tenloai'] = "Vui lòng nhập tên danh mục.";
                     }
                     if (empty($error_messages)) {
                         update_danhmuc($id, $tenloai);
@@ -72,11 +74,89 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
                 $dm = loadone_danhmuc($id);
                 include "danhmuc/capnhap.php";
                 break;
-                //sản phẩm
+ //////////////////////////////// kích thước ///////////////////////////////////////////
+            case 'dskichthuoc':
+                $id_sanpham = 0;
+                if(isset($_POST['gui'])){
+                    $id_sanpham = $_POST['idsp'];
+                     
+                } 
+                $listkt = loadall_kichthuoc_admin($id_sanpham);             
+                $listsp = loadall_sanpham();
+                include "kichthuoc/danhsach.php";
+                break;
+            case 'tmkichthuoc':
+                if (isset($_POST['gui']) && ($_POST['gui'])) {
+                    $idsp = $_POST['idsp'];
+                    $kicthuoc = $_POST['kichthuoc'];
+                    $soluong = $_POST['soluong'];
+
+                    $error_messages = array();
+
+                    if (empty($idsp)) {
+                        $error_messages['idsp'] = "Vui lòng chọn sản phẩm.";
+                    }
+                    if (empty($kicthuoc)) {
+                        $error_messages['kichthuoc'] = "Vui lòng nhập kích thước.";
+                    }
+                    if (empty($soluong)) {
+                        $error_messages['soluong'] = "Vui lòng nhập số lượng.";
+                    }
+                    if (empty($error_messages)) {
+                        insert_kichthuoc($idsp, $kicthuoc, $soluong);
+                        $thongbao = "Thêm thành công";
+                    }
+                }
+                $listsp = loadall_sanpham();
+                include "kichthuoc/themmoi.php";
+                break;
+            case 'xoakt':
+                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                    delete_kichrhuoc($_GET['id']);
+                }
+                $listkt = loadall_kichthuoc_admin(0);
+                include "kichthuoc/danhsach.php";
+                break;
+            case 'suakt':
+                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                    $kt = loadone_kichthuoc($_GET['id']);
+                }
+                $listsp = loadall_sanpham();
+                include "kichthuoc/capnhat.php";
+                break;
+            case 'cnkt':
+                if (isset($_POST['gui']) && ($_POST['gui'])) {
+                    $id = $_POST['id'];
+                    $idsp = $_POST['idsp'];
+                    $kicthuoc = $_POST['kichthuoc'];
+                    $soluong = $_POST['soluong'];
+
+                    $error_messages = array();
+
+                    if (empty($kicthuoc)) {
+                        $error_messages['kichthuoc'] = "Vui lòng nhập kích thước.";
+                    }
+                    if (empty($idsp)) {
+                        $error_messages['idsp'] = "Vui lòng chọn sản phẩm.";
+                    }
+                    if (empty($soluong)) {
+                        $error_messages['soluong'] = "Vui lòng nhập kích thước.";
+                    }
+                    if (empty($error_messages)) {
+                        update_kichthuoc($id, $idsp, $kicthuoc, $soluong);
+                        $thongbao = 'Cập nhật thành công';
+                    }
+                }
+                $listsp = loadall_sanpham();
+                $kt = loadone_kichthuoc($id);
+                include "kichthuoc/capnhat.php";
+                break;
+///////////////////////////////////////////////////////////sản phẩm/////////////////////////////////////////////////////
             case 'dstsp':
                 if (isset($_POST['gui']) && ($_POST['gui'])) {
                     $iddm = $_POST['iddm'];
                     $tensp = $_POST['tensp'];
+                    $mausac = $_POST['mausac'];
                     $giasp = $_POST['giasp'];
                     $mota = $_POST['mota'];
                     $soluong = $_POST['soluong'];
@@ -89,12 +169,17 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
                     $error_messages = array();
 
                     if (empty($iddm)) {
-                        $error_messages['iddm'] = "Hãy chọn danh mục.";
+                        $error_messages['iddm'] = "Vui lòng chọn danh mục.";
                     }
 
                     if (empty($tensp)) {
                         $error_messages['tensp'] = "Tên sản phẩm không được để trống.";
                     }
+                    
+                    if (empty($mausac)) {
+                        $error_messages['mausac'] = "Màu sắc phẩm không được để trống.";
+                    }
+
 
                     if (empty($giasp)) {
                         $error_messages['giasp'] = "Gía sản phẩm không được để trống.";
@@ -109,12 +194,12 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
                     }
 
                     if (empty($hinh)) {
-                        $error_messages['hinh'] = "Hãy chọn hình ảnh.";
+                        $error_messages['hinh'] = "Vui lòng chọn hình ảnh.";
                     }
 
                     if (empty($error_messages)) {
 
-                        insert_sanpham($tensp, $giasp, $hinh, $mota, $soluong, $iddm, $updated_at);
+                        insert_sanpham($tensp, $giasp, $hinh, $mausac, $mota, $soluong, $iddm, $updated_at);
                         $thongbao = 'Thêm thành công';
                     }
                 }
@@ -122,7 +207,6 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
                 include "sanpham/themmoi.php";
                 break;
             case 'dssp':
-                // $listdm=loadall_danhmuc();
                 $listsp = loadall_sanpham();
                 include "sanpham/danhsach.php";
                 break;
@@ -145,6 +229,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
                     $id = $_POST['id'];
                     $category_id = $_POST['iddm'];
                     $tensp = $_POST['tensp'];
+                    $mausac = $_POST['mausac'];
                     $giasp = $_POST['giasp'];
                     $mota = $_POST['mota'];
                     $soluong = $_POST['soluong'];
@@ -163,11 +248,15 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
                     $error_messages = array();
 
                     if (empty($category_id)) {
-                        $error_messages['iddm'] = "Hãy chọn danh mục.";
+                        $error_messages['iddm'] = "Vui lòng chọn danh mục.";
                     }
 
                     if (empty($tensp)) {
                         $error_messages['tensp'] = "Tên sản phẩm không được để trống.";
+                    }
+                    
+                    if (empty($mausac)) {
+                        $error_messages['mausac'] = "Màu sắc phẩm không được để trống.";
                     }
 
                     if (empty($giasp)) {
@@ -185,7 +274,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
 
                     if (empty($error_messages)) {
 
-                        update_sanpham($id, $category_id, $tensp, $giasp, $mota, $soluong, $imgPath);
+                        update_sanpham($id, $category_id, $tensp, $giasp, $mota, $soluong, $imgPath, $mausac);
                         $thongbao = 'Cập nhật thành công';
                     }
                 }
@@ -194,7 +283,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
                 include "sanpham/capnhat.php";
                 break;
 
-                // khách hàng
+/////////////////////////////////////////////////////////// khách hàng///////////////////////////////////////////////////
             case 'dskh':
                 $listTaiKhoan_user = loadAllTaiKhoan_user();
                 include "khachhang/dskhachhang.php";
@@ -207,9 +296,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
                 include "khachhang/dskhachhang.php";
                 break;
 
-
-
-                //  thành viên //
+ ////////////////////////////////////////////////////////////  thành viên ///////////////////////////////////////////////
             case 'dstv':
                 $listTaiKhoan_tv = loadAllTaiKhoan_tv();
                 include "thanhvien/danhsach.php";
@@ -326,7 +413,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
                 }
                 include "thanhvien/capnhat.php";
                 break;
-                // tin tức //
+///////////////////////////////////////////////////////////// tin tức ///////////////////////////////////////////////////////
             case 'tintuc':
                 if (isset($_POST['gui']) && ($_POST['gui'])) {
                     $name = $_POST['tenbv'];
@@ -346,7 +433,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
                     }
 
                     if (empty($img)) {
-                        $error_messages['hinh'] = "Hãy chọn file ảnh";
+                        $error_messages['hinh'] = "Vui lòng chọn file ảnh";
                     }
 
                     if (empty($mota)) {
@@ -406,7 +493,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
                     }
 
                     if (empty($img)) {
-                        $error_messages['hinh'] = "Hãy chọn file ảnh";
+                        $error_messages['hinh'] = "Vui lòng chọn file ảnh";
                     }
 
                     if (empty($mota)) {
@@ -425,7 +512,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
                 $bv = loadone_tintuc($id);
                 include 'tintuc/capnhat.php';
                 break;
-                // liên hệ //
+//////////////////////////////////////////////////////// liên hệ /////////////////////////////////////////////
             case 'lienhe':
                 $dslh = loadall_lienhe();
                 include 'lienhe/danhsach.php';
@@ -437,9 +524,15 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
                 $dslh = loadall_lienhe();
                 include 'lienhe/danhsach.php';
                 break;
-                // bình luận //
+/////////////////////////////////////////////////////////// bình luận ///////////////////////////////////////////////
             case 'binhluan':
-                $listbinhluan = loadall_binhluan(0);
+                $id_sanpham = 0;
+                if(isset($_POST['gui'])){
+                    $id_sanpham = $_POST['idsp'];
+                     
+                } 
+                $listsp = loadall_sanpham();
+                $listbinhluan = loadall_binhluan($id_sanpham);
                 include "binhluan/danhsach.php";
                 break;
             case 'xoabl':
@@ -449,7 +542,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
                 $listbinhluan = loadall_binhluan('', 0);
                 include "binhluan/danhsach.php";
                 break;
-                // đơn hàng //
+///////////////////////////////////////////////////////////// đơn hàng /////////////////////////////////////////
             case 'donhang':
                 $listbill = loadall_bill_admin();
                 include "donhang/danhsach.php";
@@ -515,13 +608,13 @@ if (isset($_SESSION['user']) && $_SESSION['user']['role_id'] == 1) {
                 break;
 
             case 'ttdonhang':
-                   if(isset($_GET['id']) && isset($_GET['ttdh'])){
-                    upadte_ttdh($_GET['id'] , $_GET['ttdh']);
-                   }
-                   $listbill = loadall_bill_admin();
-                   include 'donhang/danhsach.php';
+                if (isset($_GET['id']) && isset($_GET['ttdh'])) {
+                    upadte_ttdh($_GET['id'], $_GET['ttdh']);
+                }
+                $listbill = loadall_bill_admin();
+                include 'donhang/danhsach.php';
                 break;
-                //  tổng quan //
+ //////////////////////////////////////////////////////////  tổng quan //////////////////////////////////////////////
             case 'tongquan':
                 $donhang = soluongdonhang();
                 $loaihang = soluongloaihang();

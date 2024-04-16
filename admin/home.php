@@ -32,6 +32,13 @@
                             </ul>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fas fa-ruler"></i> Kích thước</a>
+                            <ul class="submenu" id="productsMenu">
+                                <li><a href="index.php?act=dskichthuoc">Danh sách kích thước</a></li>
+                                <li><a href="index.php?act=tmkichthuoc">Thêm kích thước</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#" id="productsDropdown"><i class="fab fa-product-hunt"></i> Sản phẩm</a>
                             <ul class="submenu" id="productsMenu">
                                 <li><a href="index.php?act=dssp">Danh sách sản phẩm</a></li>

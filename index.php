@@ -10,7 +10,6 @@ include './model/cart.php';
 include './model/taikhoan.php';
 include './model/tintuc.php';
 include './model/lienhe.php';
-include './model/bienthe.php';
 include './model/mausac.php';
 
 
@@ -18,7 +17,7 @@ if (!isset($_SESSION['cart'])) $_SESSION['cart'] = [];
 $dsdm = loadall_danhmuc();
 $sptc = loadall_sanpham_home();
 $spnew = loadall_sanpham();
-$dskt = loadall_kichthuoc();
+$list_kt =  loadall_kichthuoc_admin(0);
 $tintuc = loadall_tintuc();
 $list_of_price = list_of_price();
 if (isset($_GET['act']) && ($_GET['act'] != '')) {
@@ -37,8 +36,6 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
 
                 if (empty($email)) {
                     $error_messages['email'] = "Email không được để trống.";
-                } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $error_messages['email'] = "Email không hợp lệ.";
                 }
 
 
@@ -139,8 +136,8 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
         case 'sanphamct':
             if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                 $id = $_GET['id'];
-                $bienthe = load_bienthe($id);
                 $onesp = loadone_sanpham($id);
+                $dskt = loadall_kichthuoc($id);
                 extract($onesp);
                 include 'view/sanphamchitiet.php';
             } else {
@@ -152,14 +149,13 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
             $tamtinh = 0;
             $tong = 0;
             $phi = 0;
-            $name_size = '';
             if (!isset($_SESSION['user'])) {
                 echo '<script>window.location="index.php?act=dangnhap"</script>';
                 exit;
             }
             if (isset($_POST['addcart']) && !empty($_POST['addcart'])) {
-                foreach ($dskt as $size) {
-                    if ($size['makc'] == $_POST['size']) {
+                foreach ($list_kt as $size) {
+                    if ($size['id'] == $_POST['size']) {
                         $name_size = $size['tenkc'];
                         break;
                     }
@@ -167,6 +163,7 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                 $id = $_POST['id'];
                 $title = $_POST['tensp'];
                 $hinh = $_POST['img'];
+                $mausac = $_POST['mausac'];
                 $price = $_POST['giasp'];
                 $size = $_POST['size'];
                 $num = $_POST['soluong'];
@@ -182,7 +179,7 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                     }
                 }
                 if ($fg == 0) {
-                    $giohang = [$id, $title, $hinh, $price, $num, $name_size, $thanhtien];
+                    $giohang = [$id, $title, $hinh, $price, $num, $name_size, $thanhtien, $mausac];
                     array_push($_SESSION['cart'], $giohang);
                 }
             }
@@ -331,40 +328,35 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
             }
             break;
 
-            /////////
+            ///////// tìm kiếm theo yêu cầu ////////
         case 'filter_price':
             $filter = $_POST['filter'];
             switch ($filter) {
 
                 case 1:
                     $min = null;
-                    $max = 10000000;
+                    $max = 1000000;
                     break;
                 case 2:
-                    $min = 10000000;
-                    $max = 20000000;
+                    $min = 1000000;
+                    $max = 2000000;
                     break;
                 case 3:
-                    $min = 20000000;
-                    $max = 30000000;
+                    $min = 2000000;
+                    $max = 4000000;
                     break;
                 case 4:
-                    $min = 30000000;
+                    $min = 4000000;
                     $max = null;
             }
             $dssp = filterofprice($min, $max);
             include 'view/filter_price.php';
             break;
-
-            // biến thể //
-            // case 'bienthe':
-            //     if (isset($_GET['idms']) && (isset($_GET['idsp']))) {
-            //         $list_bienthe = load_mausac_bienthe($_GET['idms']);
-            //         $bienthe = load_bienthe($_GET['idsp']);
-            //         $onesp = loadone_sanpham($_GET['idsp']);
-            //     }
-            //     include 'view/bienthe.php';
-            //     break;
+        case 'filter_size':
+            $size = $_POST['size'];
+            $dssp = filterofsize($size);
+            include 'view/filter_size.php';
+            break;
         default:
             include 'view/home.php';
             break;

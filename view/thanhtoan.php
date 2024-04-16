@@ -21,7 +21,7 @@
 				$sdt = "";
 				$address = "";
 			}
-			// var_dump($_SESSION['user']);
+			// var_dump($_SESSION['cart']);
 			?>
 			<div class="shopper-informations">
 				<div class="row">
@@ -86,6 +86,7 @@
 							<td class="price">Gía</td>
 							<td class="quantity">Số lượng</td>
 							<td class="total">Thành tiền</td>
+							<td class="description">Màu sắc</td>
 							<td class="description">kích cỡ</td>
 						</tr>
 					</thead>
@@ -120,6 +121,9 @@
 									<p class="cart_total_price"><?php echo number_format("$thanhtien") . "" ?> VND</p>
 								</td>
 								<td class="cart_description">
+									<h4><a href=""><?php echo $mycart[7] ?></a></h4>
+								</td>
+								<td class="cart_description">
 									<h4><a href=""><?php echo $mycart[5] ?></a></h4>
 								</td>
 							</tr>
@@ -130,7 +134,7 @@
 				</table>
 			</div>
 		</div>
-	</section> <!--/#cart_items-->
+	</section> 
 	<section id="do_action">
 		<div class="container">
 			<div class="row">
@@ -146,7 +150,7 @@
 				</div>
 			</div>
 		</div>
-	</section><!--/#do_action-->
+	</section>
 </form>
 <style>
 	.order-message select {

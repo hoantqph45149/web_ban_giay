@@ -10,6 +10,7 @@
 							<td class="price">Đơn giá</td>
 							<td class="quantity">Số lượng</td>
 							<td class="total">Thành tiền</td>
+							<td class="description">Màu sắc</td>
 							<td class="description">kích cỡ</td>
 							<td class="total">Thao tác</td>
 						</tr>
@@ -48,6 +49,9 @@
 							</td>
 							<td class="cart_total">
 								<p class="cart_total_price"><?php echo number_format("$thanhtien").""?> VND</p>
+							</td>
+							<td class="cart_description">
+								<h4><a href=""><?php echo $mycart[7] ?></a></h4>
 							</td>
 							<td class="cart_description">
 								<h4><a href=""><?php echo $mycart[5] ?></a></h4>

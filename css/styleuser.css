@@ -394,7 +394,7 @@ ul.sub-menu {
     font-family: 'Roboto', sans-serif;
     font-size: 18px;
     font-weight: 700;
-    margin: 0 auto 30px;
+    margin: 5px 15px 30px;
     text-align: center;
     text-transform: uppercase;
     position: relative;
@@ -465,7 +465,7 @@ h2.title {
     font-family: 'Roboto', sans-serif;
     font-size: 18px;
     font-weight: 700;
-    margin: 0 15px;
+    margin: 5px 15px;
     text-transform: uppercase;
     margin-bottom: 30px;
     position: relative;
@@ -517,14 +517,20 @@ h2.title {
     font-family: Arial, sans-serif;
     padding: 10px;
     font-size: 20px;
+    
 }
 
 .of_price form {
     margin-bottom: 10px;
+    color: #696763;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    text-decoration: none;
 }
 
 .of_price input[type="radio"] {
     margin-right: 5px;
+    padding-bottom: 10px;
 }
 
 /*************************
@@ -601,17 +607,13 @@ h2.title {
     font-size: 20px;
     padding: 5px 10px;
 }
-
 .item-control i:hover {
     background: #ccccc6;
 }
-
 .product-information {
     border: 1px solid #F7F7F0;
     overflow: hidden;
-    padding-bottom: 60px;
-    padding-left: 60px;
-    padding-top: 60px;
+    padding: 10px 0 0 60px;
     position: relative;
 }
 
@@ -677,26 +679,41 @@ h2.title {
 
 }
 
-.product-information--btn:hover {
-    color: #b0b0ac;
+.size-picker ul{
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+}
+.size-picker ul li input[type="radio"] {
+    display: none;
+}
+.size-picker ul li{
+    margin-right: 10px;
 }
 
-.product-size-selector {
-    margin-bottom: 10px;
-}
 
-.product-size-selector label {
+.size-picker ul li label {
     display: block;
-    margin-bottom: 5px;
-}
-
-.product-size-selector select {
-    width: 100%;
-    padding: 5px;
+    padding: 10px;
     border: 1px solid #ccc;
+    cursor: pointer;
+    text-align: center;
+    font-size: 15px;
+    width: 70px;
     border-radius: 5px;
+    margin-bottom: 10px 0 0 0;
+    color: #696763;
 }
 
+.size-picker ul li label:hover {
+    background-color: #f0f0f0;
+}
+
+.size-picker ul li input[type="radio"]:checked+label {
+    border-color: #131314;
+}
 .share {
     margin-top: 15px;
 }

@@ -71,8 +71,8 @@ if (isset($onebill)) {
               <?php 
               if($onebill['huydon'] == 0){
               echo '
-              <a href="index.php?act=huydon&id='.$onebill['id'].'&huydon=1"
-              >Yêu cầu hủy đơn hàng</a>
+              <a href="index.php?act=huydon&id='.$onebill['id'].'&huydon=2"
+              >Hủy đơn hàng</a>
               ';
               }
             ?>           
@@ -81,7 +81,7 @@ if (isset($onebill)) {
 <?php
 }
 
-?>
+?>    
 
 <style>
 body {

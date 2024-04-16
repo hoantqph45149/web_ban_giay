@@ -1,6 +1,6 @@
 <?php
-function insert_sanpham($tensp,$giasp,$hinh,$mota,$soluong,$iddm,$date){
-    $sql="insert into sanpham(title,price,img,mota,soluong,category_id,updated_at ) values('$tensp','$giasp','$hinh','$mota','$soluong','$iddm','$date')";
+function insert_sanpham($tensp,$giasp,$hinh,$mausac,$mota,$soluong,$iddm,$date){
+    $sql="insert into sanpham(title,price,img,mausac,mota,soluong,category_id,updated_at ) values('$tensp','$giasp','$hinh','$mausac','$mota','$soluong','$iddm','$date')";
     pdo_execute($sql);
 }
 function delete_sanpham($id){
@@ -35,12 +35,11 @@ function loadone_sanpham($id){
     $sp=pdo_query_one($sql);
     return $sp; 
 }
-function update_sanpham($id,$category_id, $tensp, $giasp, $moTa, $soluong, $imgPath)
+function update_sanpham($id,$category_id, $tensp, $giasp, $moTa, $soluong, $imgPath, $mausac)
 {
-    $sql = "UPDATE sanpham SET category_id = '{$category_id}', title = '{$tensp}', price = '{$giasp}', img = '{$imgPath}', mota = '{$moTa}', soluong = '{$soluong}' WHERE id = '{$id}'";
+    $sql = "UPDATE sanpham SET category_id = '{$category_id}', title = '{$tensp}', price = '{$giasp}', img = '{$imgPath}', mausac = '{$mausac}', mota = '{$moTa}', soluong = '{$soluong}' WHERE id = '{$id}'";
     pdo_execute($sql);
 }
-//tên sản phẩm theo danh mục
 function load_ten_spdm($iddm){
     if ($iddm>0) {
         $sql="select * from danhmuc where id=".$iddm;
@@ -53,10 +52,10 @@ function load_ten_spdm($iddm){
 }
 function list_of_price(){
    $list = [
-          1 => " < 10 triệu",
-          2 => " 10 -> 20 triệu",
-          3 => " 20 -> 30 triệu",
-          4 => " > 30 triệu",
+          1 => " Dưới 1.000.000",
+          2 => " 1.000.000 - 2.000.000",
+          3 => " 2.000.000 - 4.000.000",
+          4 => " Trên 4.000.000",
 
    ];
    return $list;
@@ -75,14 +74,11 @@ function filterofprice($min,$max){
      $filtersp=pdo_query($sql);
      return $filtersp;
 }
-// function load_sanpham_cungloai($id,$iddm){
-//     $sql="select * from sanpham where iddm=".$iddm." AND id<>".$id;
-//     $listsp=pdo_query($sql);
-//     return $listsp;
-// }
-// function loadall_sanpham_top10(){
-//     $sql="select * from sanpham where 1 order by view desc limit 0,10";
-//     $listsp=pdo_query($sql);
-//     return $listsp;
-// }
+
+function filterofsize($size){
+    $sql = "SELECT * FROM sanpham WHERE id IN (
+        SELECT id_sanpham FROM kichthuoc WHERE tenkc = '$size')";
+    $filtersp=pdo_query($sql);
+    return $filtersp;
+}
 ?>

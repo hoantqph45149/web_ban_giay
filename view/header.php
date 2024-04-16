@@ -1,26 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Trang chủ | Shopnike</title>
+    <title>SHOPNIKE</title>
     <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style_user.css">
+    <link rel="stylesheet" href="css/styleuser.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-    <style>
-        body{
-            color: black;
-        }
-    </style>
 </head>
-<!--/head-->
 <body>
     <header id="header">
-        <!--header-->
         <div class="header_top">
-            <!--header_top-->
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
@@ -45,9 +35,7 @@
                 </div>
             </div>
         </div>
-        <!--/header_top-->
         <div class="header-middle">
-            <!--header-middle-->
             <div class="container">
                 <div class="row">
                     <div class="col-sm-4">
@@ -87,10 +75,7 @@
                 </div>
             </div>
         </div>
-        <!--/header-middle-->
-
         <div class="header-bottom">
-            <!--header-bottom-->
             <div class="container">
                 <div class="row">
                     <div class="col-sm-9">
@@ -154,6 +139,4 @@
                 </div>
             </div>
         </div>
-        <!--/header-bottom-->
     </header>
-    <!--/header-->

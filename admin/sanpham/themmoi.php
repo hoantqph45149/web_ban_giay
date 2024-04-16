@@ -18,6 +18,13 @@
                             </ul>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fas fa-ruler"></i> Kích thước</a>
+                            <ul class="submenu" id="productsMenu">
+                                <li><a href="index.php?act=dskichthuoc">Danh sách kích thước</a></li>
+                                <li><a href="index.php?act=tmkichthuoc">Thêm kích thước</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#"><i class="fab fa-product-hunt"></i> Sản phẩm</a>
                             <ul class="submenu" id="productsMenu">
                                 <li><a href="index.php?act=dssp">Danh sách sản phẩm</a></li>
@@ -66,6 +73,9 @@
                         <a href="index.php?act=dssp">Danh sách sản phẩm</a>
                     </div>
                 </ul>
+                <div class="pull-right" style="color: green ;">
+                    <h5> <?php if (isset($thongbao) && ($thongbao != "")) echo $thongbao; ?></h5>
+                </div>
                 <div class="tab-content custom-product-edit" id="myTabContent">
                     <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                         <form action="index.php?act=dstsp" method="post" enctype="multipart/form-data">
@@ -94,6 +104,11 @@
                                 <input type="file" id="hinh" name="hinh" style="color: white;">
                                 <?php if (isset($error_messages['hinh'])) echo '<p class="error" style="color: red ;">' . $error_messages['hinh'] . '</p>'; ?>
                             </div>
+                            <div class="mb-3">
+                                <label for="mausac" class="form-label">Màu sắc</label>
+                                <input type="text" class="form-control" id="mausac" name="mausac" placeholder="Màu sắc">
+                                <?php if (isset($error_messages['mausac'])) echo '<p class="error" style="color: red ;">' . $error_messages['mausac'] . '</p>'; ?>
+                            </div>
                             <div class="mb-3" style="width: 100%;">
                                 <label for="mota" class="form-label">Mô tả</label>
                                 <textarea class="form-control" id="mota" name="mota" placeholder="Mô tả"></textarea>
@@ -107,7 +122,6 @@
                             <div class="mb-3 text-center">
                                 <input name="gui" style="background-color: #111; border: none;" type="submit" class="btn btn-primary" value="Gửi">
                             </div>
-                            <?php if (isset($thongbao) && ($thongbao != "")) echo $thongbao; ?>
                         </form>
                     </div>
                 </div>

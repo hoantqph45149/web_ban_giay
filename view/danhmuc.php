@@ -43,7 +43,50 @@
                         </form>
 
                     </div>
-
+                    
+                    <h2>Mua theo size</h2>
+                    <div class="size-picker">
+                        <form action="index.php?act=filter_size" method="post">
+                            <ul>
+                                <li>
+                                    <input type="radio" id="size_38" name="size" value="EU.38"  onclick="return this.form.submit()">
+                                    <label for="size_38">EU.38</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size_39" name="size" value="EU.39"  onclick="return this.form.submit()">
+                                    <label for="size_39">EU.39</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size_40" name="size" value="EU.40"  onclick="return this.form.submit()">
+                                    <label for="size_40">EU.40</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size_41" name="size" value="EU.41"  onclick="return this.form.submit()">
+                                    <label for="size_41">EU.41</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size_41,5" name="size" value="EU.41,5"  onclick="return this.form.submit()">
+                                    <label for="size_41,5">EU.41,5</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size_42" name="size" value="EU.42"  onclick="return this.form.submit()">
+                                    <label for="size_42">EU.42</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size_42,5" name="size" value="EU.42,5"  onclick="return this.form.submit()">
+                                    <label for="size_42,5">EU.42,5</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size_43" name="size" value="EU.43"  onclick="return this.form.submit()">
+                                    <label for="size_43">EU.43</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size_43,5" name="size" value="EU.43,5"  onclick="return this.form.submit()">
+                                    <label for="size_43,5">EU.43,5</label>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
 
                 </div>
             </div>

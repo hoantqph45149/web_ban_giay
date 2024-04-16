@@ -19,37 +19,61 @@
 						}
 						?>
 					</div>
-					<!--/category-products-->
+					<h2>Chọn giá</h2>
+					<div class="of_price category-products">
 
-					<div class="brands_products">
-						<!--brands_products-->
-						<h2>Thương hiệu</h2>
-						<div class="brands-name">
-							<ul class="nav nav-pills nav-stacked">
-								<li>
-									<a href="#"> <span class="pull-right">(50)</span>Acne</a>
-								</li>
-								<li>
-									<a href="#"> <span class="pull-right">(56)</span>Grüne Erde</a>
-								</li>
-								<li>
-									<a href="#"> <span class="pull-right">(27)</span>Albiro</a>
-								</li>
-								<li>
-									<a href="#"> <span class="pull-right">(32)</span>Ronhill</a>
-								</li>
-								<li>
-									<a href="#"> <span class="pull-right">(5)</span>Oddmolly</a>
-								</li>
-								<li>
-									<a href="#"> <span class="pull-right">(9)</span>Boudestijn</a>
-								</li>
-								<li>
-									<a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a>
-								</li>
-							</ul>
-						</div>
+						<form action="index.php?act=filter_price" method="post">
+							<?php foreach ($list_of_price as $key => $value) { ?>
+								<input type="radio" name="filter" id="" value="<?= $key ?>" onclick="return this.form.submit()"> <?= $value ?> <br>
+							<?php } ?>
+						</form>
+
 					</div>
+
+					<h2>Mua theo size</h2>
+                    <div class="size-picker">
+                        <form action="index.php?act=filter_size" method="post">
+                            <ul>
+                                <li>
+                                    <input type="radio" id="size_38" name="size" value="EU.38"  onclick="return this.form.submit()">
+                                    <label for="size_38">EU.38</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size_39" name="size" value="EU.39"  onclick="return this.form.submit()">
+                                    <label for="size_39">EU.39</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size_40" name="size" value="EU.40"  onclick="return this.form.submit()">
+                                    <label for="size_40">EU.40</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size_41" name="size" value="EU.41"  onclick="return this.form.submit()">
+                                    <label for="size_41">EU.41</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size_41,5" name="size" value="EU.41,5"  onclick="return this.form.submit()">
+                                    <label for="size_41,5">EU.41,5</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size_42" name="size" value="EU.42"  onclick="return this.form.submit()">
+                                    <label for="size_42">EU.42</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size_42,5" name="size" value="EU.42,5"  onclick="return this.form.submit()">
+                                    <label for="size_42,5">EU.42,5</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size_43" name="size" value="EU.43"  onclick="return this.form.submit()">
+                                    <label for="size_43">EU.43</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size_43,5" name="size" value="EU.43,5"  onclick="return this.form.submit()">
+                                    <label for="size_43,5">EU.43,5</label>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+					
 				</div>
 			</div>
 			<div class="col-sm-9 padding-right">
@@ -66,24 +90,6 @@
 					<div class="col-sm-7">
 						<div class="product-information">
 							<?php
-							if (isset($bienthe)) {
-								foreach ($bienthe as $bt) {
-									extract($bt);
-									// var_dump($bt);
-									$mausac = load_mausac($bt['mams']);
-								}
-							} else {
-							}
-							// if (isset($mausac)) {
-							// 	foreach ($mausac as $ms) {
-							// 		if ($ms['id'] == $bt['mams']) {
-							// 			$name_color = $ms['tenms'];
-							// 			// var_dump($name_color);
-							// 		}
-							// 	}
-							// }else{
-
-							// }
 							extract($onesp);
 							// var_dump($onesp);
 							if ($soluong > 0) {
@@ -99,35 +105,32 @@
 								<span style=" font-size: 25px; font-weight: 700;"><?php echo number_format("$price") . "" ?></span>
 							</span></br>
 							<span>
-								<span>Trạng thái: <?php echo $trang_thai ?></span>
+								<span>Trạng thái: <strong><?php echo $trang_thai ?></strong></span>
 							</span><br>
-							<form action="index.php?act=addcart" method="post" onsubmit="return validateSize()">
-							<p>Số lượng: <input type="number" name="soluong" value="1" min="1" style=" width: 50px; padding: 5px 0;border: 1px solid #ccc;border-radius: 5px; text-align: center;"></p>
-								<?php 
-								if (isset($mausac)) {
-								foreach ($mausac as $ms) {
-									if ($ms['id'] == $bt['mams']) {
-										$name_color = $ms['tenms'];
-										// var_dump($name_color);
-									}
-								?>
-									<input type="radio" name="mausac" id="" value="<?= $ms['id'] ?>"> <?= $name_color ?> <br>
-								<?php }} ?>
-								<div class="product-size-selector">
-									<label for="product-size">Chọn size:</label>
-									<select id="product-size" name="size">
-										<option value="">Chọn size</option>
-										<?php foreach ($dskt as $size) : ?>
-											<option value="<?php echo $size['makc']; ?>"><?php echo $size['tenkc']; ?></option>
+							<span>
+								<span>Màu sắc: <strong><?php echo $mausac ?></strong></span>
+							</span><br>
+							<form action="index.php?act=addcart" method="post" id="addcart">
+								<p>Số lượng: <input type="number" name="soluong" value="1" min="1" style=" width: 50px; padding: 5px 0;border: 1px solid #ccc;border-radius: 5px; text-align: center;"></p>
+								<div class="size-picker">
+									<h2>Kích cỡ</h2>
+									<ul>
+										<?php foreach ($dskt as $size) :  extract($size); ?>
+											<li>
+												<input type="radio" id="size_<?php echo $size['id']; ?>" name="size" value="<?php echo $size['id']; ?>">
+												<label for="size_<?php echo $size['id']; ?>"><?php echo $size['tenkc']; ?></label>
+											</li>
 										<?php endforeach; ?>
-									</select>
+									</ul>
 								</div>
+
 								<?php
 								echo '
-										<input type="hidden"  name="id" value="' . $id . '">
+										<input type="hidden"  name="id" value="' . $onesp['id'] . '">
 										<input type="hidden" name="tensp" value="' . $title . '">
 										<input type="hidden" name="img" value="' . $img . '">
 										<input type="hidden" name="giasp" value="' . $price . '">
+										<input type="hidden" name="mausac" value="' . $mausac . '">
 										
 										
 										
@@ -148,20 +151,20 @@
 					$(document).ready(function() {
 
 						$("#reviews").load("view/binhluan.php", {
-							idpro: <?= $id ?>
+							idpro: <?= $onesp['id'] ?>
 						});
 
 					});
 				</script>
-				<?php 
-				if(isset( $_SESSION['user'])){
+				<?php
+				if (isset($_SESSION['user'])) {
 					echo '<div id="reviews">
 				</div>';
-				}else{
+				} else {
 					echo '<div class="mota" style="color: red;"> <h4> Đăng nhập để được bình luận đánh giá sản phẩm </h4> </div>';
 				}
 				?>
-				
+
 			</div>
 		</div>
 	</div>
@@ -180,13 +183,11 @@
 		}
 	</style>
 	<script>
-		function validateSize() {
-			var sizeSelect = document.getElementById("product-size");
-			var selectedSize = sizeSelect.value;
-			if (selectedSize === "") {
-				alert("Vui lòng chọn một size trước khi thêm vào giỏ hàng.");
-				return false;
+		document.getElementById("addcart").addEventListener("submit", function(event) {
+			var selectedSize = document.querySelector('input[name="size"]:checked');
+			if (!selectedSize) {
+				event.preventDefault();
+				alert("Vui lòng chọn kích cỡ trước khi nhấn Thêm vào giỏ hàng.");
 			}
-			return true;
-		}
+		});
 	</script>

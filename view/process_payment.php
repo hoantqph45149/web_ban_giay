@@ -12,7 +12,7 @@ $vnp_OrderInfo = 'Thanh toán đơn hàng test';
 $vnp_OrderType = 'billpayment';
 $vnp_Amount = $_POST['vnp_Amount'] * 100;
 $vnp_Locale = 'vn';
-$vnp_BankCode = 'NCB';
+$vnp_BankCode = '';
 $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
 
 $inputData = array(

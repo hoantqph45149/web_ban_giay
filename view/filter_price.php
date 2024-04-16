@@ -33,14 +33,11 @@
                         }
                         ?>
                     </div>
-                    <!--/category-products-->
-
                     <div class="of_price">
-                        <h2>Chọn giá</h2>
+                        <h2>Mua theo giá</h2>
                         <form action="index.php?act=filter_price" method="post">
                             <?php foreach ($list_of_price as $key => $value) { ?>
-                                <input type="radio" name="filter" id="" value="<?= $key ?>"
-                                onclick="return this.form.submit()" > <?= $value ?> <br>
+                                <input type="radio" name="filter" id="" value="<?= $key ?>" onclick="return this.form.submit()"> <?= $value ?> <br>
                             <?php } ?>
                         </form>
 
@@ -51,11 +48,10 @@
             </div>
             <div class="col-sm-9 padding-right">
                 <div class="features_items">
-                    <!--features_items-->
                     <?php
                     foreach ($dssp as $sanphamdm) {
                         extract($sanphamdm);
-                       
+
                         $hinh = $img_path . $img;
                         $linksp = 'index.php?act=sanphamct&id=' . $id;
                     ?>

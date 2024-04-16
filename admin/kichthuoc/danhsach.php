@@ -13,8 +13,8 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#"><i class="fas fa-vector-square"></i> Danh mục</a>
                             <ul class="submenu" id="productsMenu">
-                                <li><a href="index.php?act=dsdanhmuc">Danh sách danh mục</a></li>
-                                <li><a href="index.php?act=tmdanhmuc">Thêm danh mục</a></li>
+                                <li><a href="index.php?act=dskichthuoc">Danh sách danh mục</a></li>
+                                <li><a href="index.php?act=tmkichthuoc">Thêm danh mục</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -61,58 +61,54 @@
                 </div>
             </nav>
         </div>
-        <div class="col-sm-10">
-            <div class="p-3 border text-white" style="background-color: #212529;">
-                <ul class="nav nav-tabs" id="myTab3" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link text-white">
-                            <h4>Cập nhật đơn hàng</h4>
-                        </a>
-                    </li>
-                    <div class="add-product pull-right">
-                        <a href="index.php?act=donhang">Danh sách dơn hàng</a>
-                    </div>
-                </ul>
-                <div class="pull-right" style="color: green ;">
-                    <h5> <?php if (isset($thongbao) && ($thongbao != "")) echo $thongbao; ?></h5>
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <div class="product-status-wrap">
+                <h4>Danh sách kích thước</h4>
+                <form action="index.php?act=dskichthuoc" method="post">
+                    <select name="idsp" id="idsp" class="form-select pro-edt-select form-control-primary">
+                        <option value="0">Tất cả</option>
+                        <?php 
+
+                        foreach ($listsp as $sanpham) : ?>
+                            <option value="<?= $sanpham['id'] ?>"><?= $sanpham['id'] ?> : <?= $sanpham['title'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <input type="submit" style="background-color: #111; border: none;" name="gui" class="btn btn-primary mt-2" value="Tìm kiếm">
+                </form>
+                <div class="add-product">
+                    <a href="index.php?act=tmkichthuoc">Thêm mới</a>
                 </div>
-                <?php
-                if (is_array($bill)) {
-                    extract($bill);
-                }
-                ?>
-                <div class="tab-content custom-product-edit" id="myTabContent">
-                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                        <form action="index.php?act=cnbill" method="post" enctype="multipart/form-data">
-                            <div class="mb-3">
-                                <label for="tensp" class="form-label">ID đơn hàng</label>
-                                <input type="text" class="form-control" name="id" value="<?= $id ?>">
-                            </div>
-                            <div class="mb-3" style="width: 100%;">
-                                <label for="mota" class="form-label">ID khách hàng</label>
-                                <input type="text" class="form-control" name="iduser" value="<?= $user_id ?>">
-                            </div>
-                            <div class="mb-3">
-                                <label for="hinh" class="form-label">Người nhận</label><br>
-                                <input type="text" class="form-control" name="kh" value="<?= $fullname ?>">
-                                <?php if (isset($error_messages['fullname'])) echo '<p class="error" style="color: red ;">' . $error_messages['fullname'] . '</p>'; ?>
-                            </div>
-                            <div class="mb-3">
-                                <label for="hinh" class="form-label">Số điện thoại</label><br>
-                                <input type="text" class="form-control" name="sdt" value="<?= $phone_number ?>">
-                                <?php if (isset($error_messages['phone_number'])) echo '<p class="error">' . $error_messages['phone_number'] . '</p>'; ?>
-                            </div>
-                            <div class="mb-3" style="width: 100%;">
-                                <label for="mota" class="form-label">Địa chỉ</label>
-                                <input type="text" class="form-control" name="diachi" value="<?= $address ?>">
-                                <?php if (isset($error_messages['address'])) echo '<p class="error">' . $error_messages['address'] . '</p>'; ?>
-                            </div>
-                            <div class="mb-3">
-                                <input name="update" style="background-color: #111; border: none;" type="submit" class="btn btn-primary" value="Lưu">
-                            </div>
-                            <?php if (isset($thongbao) && ($thongbao != "")) echo $thongbao; ?>
-                        </form>
-                    </div>
-                </div>
+                <table>
+                    <tr>
+                        <th>Mã sản phẩm</th>
+                        <th>Kích thước</th>
+                        <th>Số Lượng</th>
+                        <th>Cài đặt</th>
+                    </tr>
+                    <?php
+                    foreach ($listkt as $kichthuoc) {
+                        extract($kichthuoc);
+                        $suadm = 'index.php?act=suakt&id=' . $id;
+                        $xoadm = 'index.php?act=xoakt&id=' . $id;
+                        echo '
+                                        <tr>
+                                            <td>' . $id_sanpham . '</td>
+                                            <td>' . $tenkc . '</td>
+                                            <td>' . $soluong . '</td>
+                                            <td>
+                                                <a href="' . $suadm . '">
+                                                    <button title="Sửa" class="pd-setting-ed"><i class="fas fa-tools"></i></button>
+                                                </a>
+                                                <a href="' . $xoadm . '">
+                                                    <button title="Xóa" class="pd-setting-ed"><i class="fas fa-trash-alt"></i></button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        ';
+                    }
+                    ?>
+                </table>
             </div>
         </div>
+    </div>
+</div>

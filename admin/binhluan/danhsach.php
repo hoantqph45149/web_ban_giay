@@ -18,6 +18,13 @@
                             </ul>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fas fa-ruler"></i> Kích thước</a>
+                            <ul class="submenu" id="productsMenu">
+                                <li><a href="index.php?act=dskichthuoc">Danh sách kích thước</a></li>
+                                <li><a href="index.php?act=tmkichthuoc">Thêm kích thước</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#"><i class="fab fa-product-hunt"></i> Sản phẩm</a>
                             <ul class="submenu" id="productsMenu">
                                 <li><a href="index.php?act=dssp">Danh sách sản phẩm</a></li>
@@ -57,6 +64,17 @@
         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
             <div class="product-status-wrap">
                 <h4>Danh sách</h4>
+                <form action="index.php?act=binhluan" method="post">
+                    <select name="idsp" id="idsp" class="form-select pro-edt-select form-control-primary">
+                        <option value="0">Tất cả</option>
+                        <?php
+
+                        foreach ($listsp as $sanpham) : ?>
+                            <option value="<?= $sanpham['id'] ?>"><?= $sanpham['id'] ?> : <?= $sanpham['title'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <input type="submit" style="background-color: #111; border: none;" name="gui" class="btn btn-primary mt-2 mb-2" value="Tìm kiếm">
+                </form>
                 <table>
                     <tr>
                         <th>Mã Bình luận</th>
